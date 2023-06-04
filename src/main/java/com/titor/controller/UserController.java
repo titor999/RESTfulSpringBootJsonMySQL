@@ -28,17 +28,18 @@ import com.titor.services.UserServices;
 
 @Controller
 @RequestMapping(value = Constant.USER_CONTROLLER_REQUEST)
-@Api("Тестование описание контроллера")
+@Api("User controller annotation")
 public class UserController {
 	@Autowired
 	private UserServices userService;
 
-	@ApiOperation("Какая-то чушь")
+	@ApiOperation("Home request")
 	@GetMapping(value = Constant.HOME_REQUEST)
 	private String home() {
 		return Constant.HOME;
 	}
 
+	@ApiOperation("Register user request")
 	@GetMapping(value = Constant.REGISTER_USER_REQUEST)
 	private String registerUser(Model model) {
 		User user = new User();
@@ -46,6 +47,7 @@ public class UserController {
 		return Constant.REGISTER;
 	}
 
+	@ApiOperation("Save user request")
 	@PostMapping(value = Constant.SAVE_USER_REQUEST)
 	private String AddUser(@ModelAttribute("user") User user, @RequestPart("file") MultipartFile[] file, Model model) {
 		Path path = null;
@@ -69,6 +71,7 @@ public class UserController {
 		return null;
 	}
 
+	@ApiOperation("Get all user request")
 	@GetMapping(value = Constant.GET_ALL_USER_REQUEST)
 	private String getAllUser(Model model) throws IOException {
 		List<User> list = userService.getAllUser();
@@ -83,6 +86,7 @@ public class UserController {
 		return Constant.ALL_USER_LIST;
 	}
 
+	@ApiOperation("Update user request")
 	@GetMapping(value = Constant.UPDATE_USER_REQUEST)
 	private String getuserById(@RequestParam("id") int id, Model model) throws IOException {
 		User user = userService.findUser(id);
@@ -94,6 +98,7 @@ public class UserController {
 		return Constant.UPDATE_USER;
 	}
 
+	@ApiOperation("Delete user request")
 	@GetMapping(value = Constant.DELETE_USER_REQUEST)
 	private String delete(@PathVariable("id") int id) {
 		System.out.println(id);
